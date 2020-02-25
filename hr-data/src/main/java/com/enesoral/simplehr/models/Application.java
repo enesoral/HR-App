@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -17,8 +17,8 @@ import java.util.Date;
 @Entity
 public class Application extends BaseEntity {
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy hh:mm")
-    private Date applicationDate;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate applicationDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

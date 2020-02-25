@@ -1,13 +1,10 @@
 package com.enesoral.simplehr.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +12,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name = "jobs")
 @Entity
 public class Job extends BaseEntity {
@@ -23,8 +21,8 @@ public class Job extends BaseEntity {
     private String description;
     private Integer numberOfHire;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy hh:mm")
-    private Date lastApplicationDate;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate lastApplicationDate;
 
     @ManyToOne
     @JoinColumn(name = "department_id")
