@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to SimpleHR!</title>
+
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.png}">
+    <link th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/webjars/font-awesome/4.3.0/css/font-awesome.min.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+</head>
+<body>
+    <header class="masthead d-flex">
+        <div class="container text-center my-auto">
+            <h1 class="mb-1">LOOKING FOR A JOB?</h1>
+            <h3 class="mb-5">
+                <em>Best Choice for Your Career!</em>
+            </h3>
+            <div th:if="!${#authorization.expression('isAuthenticated()')}">
+                <a class="btn btn-primary btn-xl" th:href="@{/login}">Login</a>
+            </div>
+            <div th:if="${#authorization.expression('isAuthenticated()')}">
+                <a class="btn btn-primary btn-xl" th:href="@{/jobs/}">Look For Jobs</a>
+            </div>
+        </div>
+    </header>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>

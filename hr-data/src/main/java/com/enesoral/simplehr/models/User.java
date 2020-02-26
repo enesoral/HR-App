@@ -15,7 +15,7 @@ public class User extends Person {
     private String username;
     private String password;
 
-    @Column(columnDefinition = "bit default 0")
+    @Column(columnDefinition = "TINYINT", length = 1)
     private Boolean isManager;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")

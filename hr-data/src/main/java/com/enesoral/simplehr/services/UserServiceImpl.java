@@ -3,6 +3,8 @@ package com.enesoral.simplehr.services;
 import com.enesoral.simplehr.models.User;
 import com.enesoral.simplehr.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -13,8 +15,16 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    public void setbCryptPasswordEncoder(BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
     @Override
     public User save(User object) {
+        object.setPassword(bCryptPasswordEncoder.encode(object.getPassword()));
         return userRepository.save(object);
     }
 
@@ -38,5 +48,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteById(Long aLong) {
         userRepository.deleteById(aLong);
+    }
+
+    @Override
+    public User findByUsername(String userName) {
+        return userRepository.findByUsername(userName).orElse(null);
     }
 }
