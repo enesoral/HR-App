@@ -1,0 +1,88 @@
+.main-nav {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: 700
+}
+
+.main-nav .navbar-brand {
+    color: #fff
+}
+
+.main-nav .logo {
+    font-family: verdana, serif;
+    color: #d4c602
+}
+
+.main-nav .logo:hover {
+    font-family: verdana, serif;
+    color: #fff
+}
+
+.main-nav .navbar-nav {
+    margin-top: 1rem
+}
+
+.main-nav .navbar-nav li.nav-item a.nav-link {
+    color: #fff
+}
+
+.main-nav .navbar-nav li.nav-item a.nav-link:hover {
+    color: #ffff00
+}
+
+.main-nav .navbar-nav li.nav-item a.nav-link:active,
+.main-nav .navbar-nav li.nav-item a.nav-link:focus {
+    color: #fff
+}
+
+.main-nav .navbar-nav li.nav-item a.nav-link.active {
+    color: #ffff00
+}
+
+.main-nav .navbar-toggler {
+    font-size: 80%;
+    padding: .8rem
+}
+
+@media (min-width:992px) {
+    .main-nav {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+        transition: padding-top .3s, padding-bottom .3s
+    }
+    .main-nav .navbar-brand {
+        font-size: 1.75em;
+        transition: font-size .3s
+    }
+    .main-nav .navbar-nav {
+        margin-top: 0
+    }
+    .main-nav .navbar-nav>li.nav-item>a.nav-link.active {
+        color: #fff;
+        background: #ffff00
+    }
+    .main-nav .navbar-nav>li.nav-item>a.nav-link.active:active,
+    .main-nav .navbar-nav>li.nav-item>a.nav-link.active:focus,
+    .main-nav .navbar-nav>li.nav-item>a.nav-link.active:hover {
+        color: #fff;
+        background: #ffff00
+    }
+    .main-nav.navbar-shrink {
+        padding-top: .5rem;
+        padding-bottom: .5rem
+    }
+    .main-nav.navbar-shrink .navbar-brand {
+        font-size: 1.5em
+    }
+}
+
+.btn-logout {
+    width: 95px;
+    height: 50px;
+    margin: 0 auto 0 25px;
+    padding: 0;
+    display: inline-block;
+    line-height: 50px;
+    text-align: center;
+}

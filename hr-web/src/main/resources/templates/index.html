@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to SimpleHR!</title>
+    <title>SimpleHR!</title>
 
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.png}">
     <link th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}" rel="stylesheet">
@@ -11,17 +11,17 @@
     <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
-    <header class="masthead d-flex">
+    <header class="masthead2 d-flex">
         <div class="container text-center my-auto">
             <h1 class="mb-1">LOOKING FOR A JOB?</h1>
             <h3 class="mb-5">
-                <em>Best Choice for Your Career!</em>
+                <em>SimpleHR is The Best Choice for Your Career!</em>
             </h3>
             <div th:if="!${#authorization.expression('isAuthenticated()')}">
                 <a class="btn btn-primary btn-xl" th:href="@{/login}">Login</a>
             </div>
             <div th:if="${#authorization.expression('isAuthenticated()')}">
-                <a class="btn btn-primary btn-xl" th:href="@{/jobs/}">Look For Jobs</a>
+                <a class="btn btn-primary btn-xl" th:href="@{/jobs/}">Check Jobs</a>
             </div>
         </div>
     </header>

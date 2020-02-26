@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Job List</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/header :: header-head">
+    <title id="pageTitle">Jobs</title>
 </head>
 <body>
-    <h2>Jobs for you..</h2>
+    <div th:replace="fragments/header :: header"></div>
+
+    <div class="container">
+        <h2>Jobs..</h2>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
