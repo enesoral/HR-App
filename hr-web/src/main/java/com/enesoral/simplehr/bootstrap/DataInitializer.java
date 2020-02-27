@@ -1,9 +1,6 @@
 package com.enesoral.simplehr.bootstrap;
 
-import com.enesoral.simplehr.models.Application;
-import com.enesoral.simplehr.models.Department;
-import com.enesoral.simplehr.models.Job;
-import com.enesoral.simplehr.models.User;
+import com.enesoral.simplehr.models.*;
 import com.enesoral.simplehr.services.ApplicationService;
 import com.enesoral.simplehr.services.DepartmentService;
 import com.enesoral.simplehr.services.JobService;
@@ -12,6 +9,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -48,15 +47,19 @@ public class DataInitializer implements CommandLineRunner {
         departmentService.save(humanResources);
 
         Job softwareEngineerIntern = Job.builder().title("Software Engineer Intern").description("We are hiring!")
-                .numberOfHire(3).department(it).lastApplicationDate(LocalDate.now()).build();
+                .numberOfHire(3).department(it).jobType(JobType.TYPE_INTERN)
+                .publishDate(LocalDate.now().atTime(13, 0)).lastApplicationDate(LocalDate.now()).build();
         jobService.save(softwareEngineerIntern);
 
         Job humanResourcesTeamLead = Job.builder().title("Human Resources Team Lead").description("We are hiring!")
-                .numberOfHire(2).department(humanResources).lastApplicationDate(LocalDate.now()).build();
+                .numberOfHire(2).department(humanResources).jobType(JobType.TYPE_FULL)
+                .publishDate(LocalDateTime.of(2019, Month.DECEMBER, 1, 12, 30))
+                .lastApplicationDate(LocalDate.now()).build();
         jobService.save(humanResourcesTeamLead);
 
         Job marketingTeamLead = Job.builder().title("Marketing Team Lead").description("We are hiring!")
-                .numberOfHire(3).department(marketing).lastApplicationDate(LocalDate.now()).build();
+                .numberOfHire(3).department(marketing).jobType(JobType.TYPE_FULL)
+                .publishDate(LocalDate.now().atTime(11,0)).lastApplicationDate(LocalDate.now()).build();
         jobService.save(marketingTeamLead);
 
         User enes = User.builder().firstName("Muhammed Enes").lastName("Oral").username("enesoral")

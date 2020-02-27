@@ -5,9 +5,8 @@ import com.enesoral.simplehr.repositories.JobRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.security.acl.Owner;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 @RequiredArgsConstructor
 @Service
@@ -31,7 +30,7 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public Set<Job> findAll() {
-        Set<Job> jobs = new HashSet<>();
+        Set<Job> jobs = new TreeSet<>();
         jobRepository.findAll().forEach(jobs::add);
         return jobs;
     }
