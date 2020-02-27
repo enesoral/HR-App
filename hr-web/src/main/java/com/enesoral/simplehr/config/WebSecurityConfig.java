@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -38,13 +39,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        String[] publicLinks = {"/login", "/", "/index", "/images/**", "/css/**", "/webjars/**"};
+        String[] adminLinks = {"/h2-console/**", "/**/delete/"};
+
         http
                 .headers().frameOptions().disable()
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/", "/index", "/images/**", "/css/**", "/webjars/**")
-                .permitAll()
+                .antMatchers(publicLinks).permitAll()
+                .antMatchers(adminLinks).access("hasAuthority('ADMIN')")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
