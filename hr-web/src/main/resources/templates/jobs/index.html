@@ -16,7 +16,7 @@
                 <th scope="col">Job Title</th>
                 <th scope="col">Job Type</th>
                 <th><a th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}"
-                       th:href="@{#}" class="btn btn-success">Create Job</a></th>
+                       th:href="@{'/jobs/addform'}" class="btn btn-success">Create Job</a></th>
             </tr>
             </thead>
             <tbody>

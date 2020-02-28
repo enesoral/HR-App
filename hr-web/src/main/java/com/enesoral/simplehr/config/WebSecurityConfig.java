@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         String[] publicLinks = {"/login", "/", "/index", "/images/**", "/css/**", "/webjars/**"};
-        String[] adminLinks = {"/h2-console/**", "/**/delete/"};
+        String[] adminLinks = {"/h2-console/**", "/**/delete/", "/**/addform/", "/**/addjob/"};
 
         http
                 .headers().frameOptions().disable()

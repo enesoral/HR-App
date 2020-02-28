@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <object th:replace="fragments/header :: head"></object>
+    <title>Add Job</title>
+    <style>
+        label {
+            color: #ffff00;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+
+    <div style="background-color: #41444D">
+        <div class="container my-1 py-3">
+            <form th:action="@{/jobs/addjob}" th:object="${job}" method="POST">
+                <div class="col-sm-12">
+                    <h3 th:if="${param.error}" class="alert alert-error mb-5 text-center font-weight-bold"
+                        style="color:red">Invalid job</h3>
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>Job Title</label>
+                            <input type="text" th:field="*{title}" minlength="5" th:maxlength="45" required
+                                   placeholder="Enter Job Title Here.." class="form-control">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Number Of Hire</label>
+                            <input type="number" th:field="*{numberOfHire}" th:min="1" th:max="100" required
+                                   placeholder="Enter Number Of Hire Here.." class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>Department</label>
+                            <select class="form-control" th:field="*{department}">
+                                <option th:each="department : ${departments}" th:value="${department.getId()}"
+                                        th:text="${department.getName()}"></option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Job Type</label>
+                            <select class="form-control" th:field="*{jobType}">
+                                <option th:each="jobType : ${T(com.enesoral.simplehr.models.JobType).values()}"
+                                        th:value="${jobType.name()}"
+                                        th:text="${jobType}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group overflow-hidden">
+                        <label>Job Description</label>
+                        <textarea th:field="*{description}" minlength="10" th:maxlength="150"
+                                  placeholder="Enter Description Here.." required rows="3"
+                                  class="form-control"></textarea>
+                        <input type="submit" class="btn btn-lg btn-success float-right mt-3" value="Add Job">
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
