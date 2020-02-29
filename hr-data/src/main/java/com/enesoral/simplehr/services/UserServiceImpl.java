@@ -4,9 +4,14 @@ import com.enesoral.simplehr.models.User;
 import com.enesoral.simplehr.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +19,7 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final FileService fileService;
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -53,5 +59,30 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUsername(String userName) {
         return userRepository.findByUsername(userName).orElse(null);
+    }
+
+    @Override
+    public boolean setAndUploadResume(User user, File resume) {
+        String fileName = user.getUsername() + "-resume";
+        if(!fileService.uploadResume(resume, fileName)) {
+            return false;
+        }
+        user.setResumeDirectory(FileServiceImpl.uploadDirectory + fileName);
+        update(user);
+        return true;
+    }
+
+    @Override
+    public User getLoggedUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth instanceof AnonymousAuthenticationToken) {
+            return null;
+        }
+        UserDetails userDetail = (UserDetails) auth.getPrincipal();
+        return findByUsername(userDetail.getUsername());
+    }
+
+    private User update(User user) {
+        return userRepository.save(user);
     }
 }

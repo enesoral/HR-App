@@ -46,36 +46,37 @@ public class DataInitializer implements CommandLineRunner {
         humanResources.setName("Human Resources");
         departmentService.save(humanResources);
 
-        Job softwareEngineerIntern = Job.builder().title("Software Engineer Intern").description("We are hiring!")
+        String descriptionMsg = "We are looking for employee who loves his job and doing tasks with passion!";
+        Job softwareEngineerIntern = Job.builder().title("Software Engineer Intern").description(descriptionMsg)
                 .numberOfHire(3).department(it).jobType(JobType.TYPE_INTERN)
                 .publishDate(LocalDate.now().atTime(13, 0)).lastApplicationDate(LocalDate.now()).build();
         jobService.save(softwareEngineerIntern);
 
-        Job humanResourcesTeamLead = Job.builder().title("Human Resources Team Lead").description("We are hiring!")
+        Job humanResourcesTeamLead = Job.builder().title("Human Resources Team Lead").description(descriptionMsg)
                 .numberOfHire(2).department(humanResources).jobType(JobType.TYPE_FULL)
                 .publishDate(LocalDateTime.of(2019, Month.DECEMBER, 1, 12, 30))
                 .lastApplicationDate(LocalDate.now()).build();
         jobService.save(humanResourcesTeamLead);
 
-        Job marketingTeamLead = Job.builder().title("Marketing Team Lead").description("We are hiring!")
+        Job marketingTeamLead = Job.builder().title("Marketing Team Lead").description(descriptionMsg)
                 .numberOfHire(3).department(marketing).jobType(JobType.TYPE_FULL)
                 .publishDate(LocalDate.now().atTime(11,0)).lastApplicationDate(LocalDate.now()).build();
         jobService.save(marketingTeamLead);
 
-        User enes = User.builder().firstName("Muhammed Enes").lastName("Oral").username("enesoral")
-                .password("123").isManager(false).build();
+        User enes = User.builder().firstName("Muhammed Enes").lastName("Oral").address("İzmir").email("info@enesoral.com")
+                .phone("5078713351").username("enesoral").password("123").isManager(false).build();
         userService.save(enes);
 
-        User ozlem = User.builder().firstName("Özlem").lastName("Çakmak").username("ozlemcakmak")
-                .password("123").isManager(false).build();
+        User ozlem = User.builder().firstName("Özlem").lastName("Çakmak").username("ozlemcakmak").address("İstanbul")
+                .email("ozlemcakmak@gmail.com").phone("5553334444").password("123").isManager(false).build();
         userService.save(ozlem);
 
-        User gulcin = User.builder().firstName("Gülçin").lastName("Nacak").username("gulcinnacak")
-                .password("123").isManager(false).build();
+        User gulcin = User.builder().firstName("Gülçin").lastName("Nacak").username("gulcinnacak").address("İstanbul")
+                .email("gulcinnacak@gmail.com").phone("5554443333").password("123").isManager(false).build();
         userService.save(gulcin);
 
-        User destan = User.builder().firstName("Destan").lastName("Sarpkaya").username("destansarpkaya")
-                .password("123").isManager(true).build();
+        User destan = User.builder().firstName("Destan").lastName("Sarpkaya").username("destansarpkaya").address("İstanbul")
+                .email("destan@gmail.com").phone("5554433334").password("123").isManager(true).build();
         userService.save(destan);
 
         Application application1 = new Application();
