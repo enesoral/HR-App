@@ -41,6 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         String[] publicLinks = {"/login", "/", "/index", "/images/**", "/css/**", "/webjars/**"};
         String[] adminLinks = {"/h2-console/**", "/**/delete/", "/**/addform/", "/**/addjob/"};
+        String[] userLinks = {"/**/resumeform/", "/**/applyform/"};
 
         http
                 .headers().frameOptions().disable()
@@ -49,6 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(publicLinks).permitAll()
                 .antMatchers(adminLinks).access("hasAuthority('ADMIN')")
+                .antMatchers(userLinks).access("hasAuthority('USER')")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

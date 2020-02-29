@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <object th:replace="fragments/header :: head"></object>
+    <title>Upload Resume</title>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+    <div style="background-color: #41444D">
+        <div class="container">
+            <form method="POST" th:action="@{'/users/uploadresume/'}" enctype="multipart/form-data">
+                <div class="container my-1 py-3">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-6 form-group overflow-hidden">
+                                <label>Upload your resume (.pdf, .docx, .doc - max 1mb)</label>
+                                <input type="file" class="btn btn-outline-light" name="resume" required accept=".doc,.docx,.pdf"/>
+                                <input type="submit" class="btn btn-lg btn-success mt-3" value="Upload Resume">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

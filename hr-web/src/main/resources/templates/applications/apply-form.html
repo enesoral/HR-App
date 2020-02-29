@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <object th:replace="fragments/header :: head"></object>
+    <title>Apply Job</title>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+
+    <div style="background-color: #41444D">
+        <div class="container">
+
+                <div class="container my-1 py-3">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <label>Upload new resume (optional)</label>
+                                <button onclick="location.href='/users/resumeform'" style="display: block"
+                                        class="btn btn-outline-light">New Resume</button>
+                            </div>
+                        </div>
+                        <form method="POST" th:action="@{'/applications/' + ${id} + '/apply'}" enctype="multipart/form-data">
+                        <div class="form-group overflow-hidden">
+                            <label>Thoughts on Job</label>
+                            <textarea name="thoughts" minlength="10" th:maxlength="150"
+                                      placeholder="Enter Thoughts Here.." required rows="3"
+                                      class="form-control"></textarea>
+                            <input type="submit" class="btn btn-lg btn-success float-right mt-3" value="Apply Job">
+                        </div>
+                        </form>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

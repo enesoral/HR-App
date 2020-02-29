@@ -24,7 +24,9 @@
                 <td th:text="${job.getTitle()}"></td>
                 <td th:text="${job.getJobType()}"></td>
                 <td>
-                    <a class="btn btn-info" th:onclick="'openDetail(' + ${job.getId()} + ')'">Details</a>
+                    <a class="btn btn-info" th:onclick="'openDetail(' + ${job.getId()} + ')'"
+                       th:id="${job.getId()}">Details</a>
+
                     <form th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}" method="POST"
                           th:action="@{'/jobs/' + ${job.getId()} + '/delete'}" style="display:inline;">
                         <input type="submit" class="btn btn-danger ml-3" value="Delete"
@@ -44,9 +46,10 @@
                     <div class="modal-body" id="job-content"></div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button th:if="${#authorization.expression('hasAuthority(''USER'')')}"
-                                class="btn btn-lg btn-info" th:href="@{#}">Apply
-                        </button>
+                        <form th:if="${#authorization.expression('hasAuthority(''USER'')')}"
+                              style="display:inline;" th:id="applyForm">
+                            <input type="submit" class="btn btn-lg btn-info" value="Apply">
+                        </form>
                     </div>
                 </div>
             </div>
@@ -57,6 +60,7 @@
 
     <script>
         function openDetail(currentId) {
+            setApplyAction(currentId);
             $.ajax({
                 type: "POST",
                 url: '/jobs/' + currentId + '/detail',
@@ -65,6 +69,13 @@
                     $('#job-content').html(data);
                     $('#detail-modal').modal('show');
                 }
+            });
+        }
+
+        function setApplyAction(currentId) {
+            $("#applyForm").attr({
+                method: "get",
+                action: "/applications/" + currentId + "/applyform/"
             });
         }
     </script>

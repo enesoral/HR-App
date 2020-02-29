@@ -1,3 +1,8 @@
+label {
+    color: #ffff00;
+    font-weight: bold;
+}
+
 .main-nav {
     padding-top: 1rem;
     padding-bottom: 1rem;
