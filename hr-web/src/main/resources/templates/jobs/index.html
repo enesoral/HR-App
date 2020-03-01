@@ -79,5 +79,20 @@
             });
         }
     </script>
+    <script th:if="${param.applysuccess}">
+        toastr.success("", "Applied successfully!");
+    </script>
+    <script th:if="${param.alreadyapplied}">
+        toastr.info("", "You applied already!");
+    </script>
+    <script th:if="${param.jobadded}">
+        toastr.success("", "Job added successfully!");
+    </script>
+    <script th:if="${param.jobdeleted}">
+        toastr.success("", "Job deleted successfully!");
+    </script>
+    <script th:if="${param.resumesuccess}">
+        toastr.success("", "Resume uploaded successfully!");
+    </script>
 </body>
 </html>

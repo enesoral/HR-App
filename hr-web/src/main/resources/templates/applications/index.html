@@ -75,5 +75,8 @@
             });
         }
     </script>
+    <script th:if="${param.appdeleted}">
+        toastr.success("", "Application deleted successfully!");
+    </script>
 </body>
 </html>

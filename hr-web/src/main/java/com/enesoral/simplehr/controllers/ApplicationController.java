@@ -66,7 +66,7 @@ public class ApplicationController {
     @PostMapping("/{id}/delete")
     public String deleteApplication(@PathVariable String id) {
         applicationService.deleteById(Long.parseLong(id));
-        return "redirect:/applications/index?deleted";
+        return "redirect:/applications/index?appdeleted";
     }
 
     private boolean isAlreadyApplied(Job job, User user) {

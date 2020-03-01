@@ -8,6 +8,7 @@
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.png}">
     <link th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/webjars/font-awesome/4.3.0/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{/webjars/toastr/2.1.2/build/toastr.css}" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
@@ -30,8 +31,6 @@
                                     <input type="password" id="password" name="password" class="form-control"
                                            placeholder="Your Password"/>
                                 </div>
-                                <h3 th:if="${param.error}" class="alert alert-error mb-5" style="color:red">Invalid
-                                    username or password.</h3>
                                 <button type="submit" class="btn btn-primary btn-xl">Login</button>
                             </fieldset>
                         </form>
@@ -41,7 +40,11 @@
         </div>
     </header>
 
-    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/toastr/2.1.2/toastr.js}"></script>
+    <script th:if="${param.error}">
+        toastr.error("", "Invalid username or password!");
+    </script>
 </body>
 </html>

@@ -51,12 +51,12 @@ public class JobController {
         }
         job.setPublishDate(LocalDateTime.now());
         jobService.save(job);
-        return "redirect:/jobs/index";
+        return "redirect:/jobs/index?jobadded";
     }
 
     @PostMapping("/{id}/delete")
     public String deleteById(@PathVariable String id) {
         jobService.deleteById(Long.parseLong(id));
-        return "redirect:/jobs/index";
+        return "redirect:/jobs/index?jobdeleted";
     }
 }

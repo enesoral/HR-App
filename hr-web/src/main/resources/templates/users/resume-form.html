@@ -14,7 +14,7 @@
                         <div class="row">
                             <div class="col-sm-6 form-group overflow-hidden">
                                 <label>Upload your resume (.pdf - max 1mb)</label>
-                                <input type="file" class="btn btn-outline-light" name="resume" required accept=".doc,.docx,.pdf"/>
+                                <input type="file" class="btn btn-outline-light" name="resume" required accept=".pdf"/>
                                 <input type="submit" class="btn btn-lg btn-success mt-3" value="Upload Resume">
                             </div>
                         </div>
@@ -25,5 +25,11 @@
     </div>
 
     <div th:replace="fragments/footer :: footer"></div>
+    <script th:if="${param.resumeerror}">
+        toastr.error("", "Choose valid file type!");
+    </script>
+    <script th:if="${param.haveto}">
+        toastr.info("", "You have to upload resume!");
+    </script>
 </body>
 </html>
