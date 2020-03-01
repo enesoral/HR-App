@@ -21,7 +21,6 @@ import java.util.Set;
 @Table(name = "jobs")
 @Entity
 public class Job extends BaseEntity implements Comparable<Job> {
-
     @NotNull(message = "Name cannot be null")
     @Size(min = 5, max = 50, message = "Title must be between 10 and 50 characters")
     private String title;
@@ -51,25 +50,12 @@ public class Job extends BaseEntity implements Comparable<Job> {
     private Department department;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "job")
-    private Set<Application> applications = new HashSet<>();
+    private final Set<Application> applications = new HashSet<>();
 
     @Override
     public int compareTo(Job job) {
         LocalDateTime d = job.getPublishDate();
 
-        int cmp = (d.getYear() - publishDate.getYear());
-        if (cmp == 0) {
-            cmp = (d.getMonthValue() - publishDate.getMonthValue());
-            if (cmp == 0) {
-                cmp = (d.getDayOfYear() - publishDate.getDayOfYear());
-                if(cmp == 0) {
-                    cmp = (d.getHour() - publishDate.getHour());
-                    if (cmp == 0) {
-                        cmp = (d.getMinute()- publishDate.getMinute());
-                    }
-                }
-            }
-        }
-        return cmp;
+        return d.compareTo(this.publishDate);
     }
 }

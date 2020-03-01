@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 @RequiredArgsConstructor
 @Service
@@ -39,7 +39,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public Set<Application> findAll() {
-        Set<Application> applications = new HashSet<>();
+        Set<Application> applications = new TreeSet<>();
         applicationRepository.findAll().forEach(applications::add);
         return applications;
     }

@@ -44,8 +44,7 @@ public class FileServiceImpl implements FileService {
         try {
             Tika tika = new Tika();
             String detectedType = tika.detect(FileUtils.readFileToByteArray(file));
-            return detectedType
-                    .matches("application/pdf|application/msword|application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            return detectedType.equals("application/pdf");
         } catch(IOException e) {
             return false;
         }

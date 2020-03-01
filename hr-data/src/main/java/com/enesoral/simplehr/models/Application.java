@@ -1,15 +1,12 @@
 package com.enesoral.simplehr.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -17,11 +14,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Table(name = "applications")
 @Entity
-public class Application extends BaseEntity {
+public class Application extends BaseEntity implements Comparable<Application>{
 
     @NotNull
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDate applicationDate;
+    private LocalDateTime applicationDate;
 
     @NotNull
     @ManyToOne
@@ -35,4 +32,11 @@ public class Application extends BaseEntity {
 
     @Size(min = 10, max = 150, message = "Thoughts must be between 10 and 50 characters")
     private String thoughtsOnJob;
+
+    @Override
+    public int compareTo(Application app) {
+        LocalDateTime d = app.getApplicationDate();
+
+        return d.compareTo(this.applicationDate);
+    }
 }

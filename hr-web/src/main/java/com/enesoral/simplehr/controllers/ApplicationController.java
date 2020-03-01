@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/applications")
@@ -24,6 +24,18 @@ public class ApplicationController {
         this.applicationService = applicationService;
         this.jobService = jobService;
         this.userService = userService;
+    }
+
+    @GetMapping({"/", "/index"})
+    public String listApplications(Model model) {
+        model.addAttribute("applications", applicationService.findAll());
+        return "applications/index";
+    }
+
+    @PostMapping("/{id}/detail")
+    public String getApplicationById(@PathVariable String id, Model model){
+        model.addAttribute("app", applicationService.findById(Long.parseLong(id)));
+        return "applications/detail";
     }
 
     @GetMapping("/{id}/applyform")
@@ -44,11 +56,17 @@ public class ApplicationController {
     @PostMapping("/{id}/apply")
     public String applyJob(@PathVariable String id, @RequestParam("thoughts") String thoughts) {
 
-        Application application = new Application(LocalDate.now(), userService.getLoggedUser(),
+        Application application = new Application(LocalDateTime.now(), userService.getLoggedUser(),
                 jobService.findById(Long.parseLong(id)), thoughts);
 
         applicationService.save(application);
         return "redirect:/jobs/index?applysuccess";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String deleteApplication(@PathVariable String id) {
+        applicationService.deleteById(Long.parseLong(id));
+        return "redirect:/applications/index?deleted";
     }
 
     private boolean isAlreadyApplied(Job job, User user) {

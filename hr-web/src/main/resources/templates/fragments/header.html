@@ -25,7 +25,7 @@
                         </a>
                     </li>
                     <li th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}" class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3" th:href="@{#}">Applications</a>
+                        <a class="nav-link py-3 px-0 px-lg-3" th:href="@{/applications/}">Applications</a>
                     </li>
                     <a class="btn btn-primary btn-logout white-text" th:href="@{/logout}">Logout</a>
                 </ul>

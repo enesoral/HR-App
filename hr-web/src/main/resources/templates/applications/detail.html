@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+    <div class="header">
+        <h5 class="info"
+            th:text="'Applicant Name: '  + ${app.getUser().getFirstName() + ' ' + app.getUser().getLastName()}">
+        </h5>
+    </div>
+    <div class="content">
+        <div class="main">
+            <h4 class="text-center">Thoughts On Job</h4>
+            <p class="text-center" th:text="${app.getThoughtsOnJob()}"></p>
+            <div class="stats-container">
+                <div class="stats">
+                    <h4 th:text="${app.getJob().getApplications().size()}"></h4>
+                    <p>Total Applications</p>
+                </div>
+                <div class="stats">
+                    <h4 th:text="${app.getUser().getPhone()}"></h4>
+                    <p>Phone</p>
+
+                </div>
+                <div class="stats">
+                    <h4 th:text="${#temporals.format(app.getApplicationDate(), 'dd-MM-yyyy')}"></h4>
+                    <p>Application Date</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

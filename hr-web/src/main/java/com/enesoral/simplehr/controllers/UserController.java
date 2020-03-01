@@ -2,15 +2,14 @@ package com.enesoral.simplehr.controllers;
 
 import com.enesoral.simplehr.models.User;
 import com.enesoral.simplehr.services.FileService;
-import com.enesoral.simplehr.services.FileServiceImpl;
 import com.enesoral.simplehr.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 @Controller
 @RequestMapping("/users")
@@ -35,6 +34,18 @@ public class UserController {
             return "redirect:/users/resumeform?resumeerror";
         }
         return "redirect:/jobs/index?resumesuccess";
+    }
+
+    @PostMapping("/{id}/showresume")
+    public void showResume(@PathVariable String id, HttpServletResponse response) throws IOException {
+        response.setContentType("application/pdf");
+        String userName = userService.findById(Long.parseLong(id)).getUsername();
+        InputStream inputStream =
+                new FileInputStream(new File(System.getProperty("user.dir") + "/uploads/" + userName + "-resume"));
+        int nRead;
+        while ((nRead = inputStream.read()) != -1) {
+            response.getWriter().write(nRead);
+        }
     }
 
     private boolean setAndUploadResume(User user, MultipartFile resume) {
