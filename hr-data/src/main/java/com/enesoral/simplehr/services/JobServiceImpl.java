@@ -19,6 +19,13 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
+    public Set<Job> searchJobs(String search) {
+        Set<Job> foundedJobs = new TreeSet<>();
+        jobRepository.findAllByTitleContaining(search).forEach(foundedJobs::add);
+        return foundedJobs;
+    }
+
+    @Override
     public Job save(Job object) {
         return jobRepository.save(object);
     }

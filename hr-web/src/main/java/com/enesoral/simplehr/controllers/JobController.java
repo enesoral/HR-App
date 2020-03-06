@@ -1,15 +1,13 @@
 package com.enesoral.simplehr.controllers;
 
+import com.enesoral.simplehr.models.Department;
 import com.enesoral.simplehr.models.Job;
 import com.enesoral.simplehr.services.DepartmentService;
 import com.enesoral.simplehr.services.JobService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.*;
 import java.time.LocalDateTime;
@@ -32,19 +30,35 @@ public class JobController {
         return "jobs/index";
     }
 
+    @PostMapping("/search")
+    public String searchJobs(@RequestParam("search") String search, Model model) {
+        model.addAttribute("jobs", jobService.searchJobs(search));
+        return "jobs/index";
+    }
+
     @PostMapping("/{id}/detail")
     public String getJobById(@PathVariable String id, Model model) {
         model.addAttribute("job", jobService.findById(Long.parseLong(id)));
         return "jobs/detail";
     }
 
-    @GetMapping("/addform")
-    public String showJobAddForm(Model model, Job job) {
+    @GetMapping("/add")
+    public String showAddForm(Model model) {
+        Job job = new Job();
+        job.setDepartment(new Department());
+        model.addAttribute("job", job);
         model.addAttribute("departments", departmentService.findAll());
-        return "jobs/add-job";
+        return "jobs/job-form";
     }
 
-    @PostMapping("/addjob")
+    @GetMapping("/{id}/update")
+    public String showUpdateForm(@PathVariable String id, Model model) {
+        model.addAttribute("job", jobService.findById(Long.parseLong(id)));
+        model.addAttribute("departments", departmentService.findAll());
+        return "jobs/job-form";
+    }
+
+    @PostMapping("/saveOrUpdate")
     public String addJob(@Valid Job job, BindingResult result) {
         if (result.hasErrors()) {
             return "redirect:/jobs/addform?error";

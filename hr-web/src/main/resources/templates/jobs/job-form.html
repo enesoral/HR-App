@@ -10,6 +10,7 @@
     <div style="background-color: #41444D">
         <div class="container my-1 py-3">
             <form th:action="@{/jobs/addjob}" th:object="${job}" method="POST">
+                <input type="hidden" th:field="*{id}" />
                 <div class="col-sm-12">
                     <h3 th:if="${param.error}" class="alert alert-error mb-5 text-center font-weight-bold"
                         style="color:red">Invalid job</h3>
@@ -50,7 +51,6 @@
                                   class="form-control"></textarea>
                         <input type="submit" class="btn btn-lg btn-success float-right mt-3" value="Add Job">
                     </div>
-
                 </div>
             </form>
         </div>
