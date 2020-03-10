@@ -29,7 +29,7 @@
                 <th scope="col">Job Title</th>
                 <th scope="col">Job Type</th>
                 <th><a th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}"
-                       th:href="@{'/jobs/addform'}" class="btn btn-success">Create Job</a></th>
+                       th:href="@{'/jobs/add'}" class="btn btn-success">Create Job</a></th>
             </tr>
             </thead>
             <tbody>
@@ -39,12 +39,8 @@
                 <td>
                     <a class="btn btn-info" th:onclick="'openDetail(' + ${job.getId()} + ')'"
                        th:id="${job.getId()}">Details</a>
-
-                    <form th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}" method="POST"
-                          th:action="@{'/jobs/' + ${job.getId()} + '/delete'}" style="display:inline;">
-                        <input type="submit" class="btn btn-danger ml-3" value="Delete"
-                               th:onclick="return confirm('Are you sure you want to delete this job?')">
-                    </form>
+                    <a class="btn btn-warning ml-2" th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}"
+                       th:href="@{'/jobs/' + ${job.getId()} + '/update'}" th:id="${job.getId()}">Update</a>
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(jobs)}">

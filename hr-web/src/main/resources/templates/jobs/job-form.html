@@ -9,7 +9,7 @@
 
     <div style="background-color: #41444D">
         <div class="container my-1 py-3">
-            <form th:action="@{/jobs/addjob}" th:object="${job}" method="POST">
+            <form th:action="@{/jobs/saveOrUpdate}" th:object="${job}" method="POST">
                 <input type="hidden" th:field="*{id}" />
                 <div class="col-sm-12">
                     <h3 th:if="${param.error}" class="alert alert-error mb-5 text-center font-weight-bold"
@@ -53,6 +53,15 @@
                     </div>
                 </div>
             </form>
+            <div class="row">
+                <div class="col-md-12">
+                    <form th:if="${id != null}" method="POST"
+                          th:action="@{'/jobs/' + ${job.getId()} + '/delete'}">
+                        <input type="submit" class="btn btn-danger float-right mr-4" value="Delete"
+                               th:onclick="return confirm('Are you sure you want to delete this job?')">
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
