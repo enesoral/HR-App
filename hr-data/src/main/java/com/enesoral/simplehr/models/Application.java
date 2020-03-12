@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "applications")
 @Entity
-public class Application extends BaseEntity implements Comparable<Application>{
+public class Application extends BaseEntity {
 
     @NotNull
     @DateTimeFormat(pattern = "dd-MM-yyyy")
@@ -32,11 +32,4 @@ public class Application extends BaseEntity implements Comparable<Application>{
 
     @Size(min = 10, max = 150, message = "Thoughts must be between 10 and 50 characters")
     private String thoughtsOnJob;
-
-    @Override
-    public int compareTo(Application app) {
-        LocalDateTime d = app.getApplicationDate();
-
-        return d.compareTo(this.applicationDate);
-    }
 }

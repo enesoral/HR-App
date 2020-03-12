@@ -3,10 +3,10 @@ package com.enesoral.simplehr.services;
 import com.enesoral.simplehr.models.Department;
 import com.enesoral.simplehr.repositories.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
+import org.springframework.data.domain.Pageable;
 
 @RequiredArgsConstructor
 @Service
@@ -24,10 +24,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Set<Department> findAll() {
-        Set<Department> departments = new HashSet<>();
-        departmentRepository.findAll().forEach(departments::add);
-        return departments;
+    public Page<Department> findAll(Pageable pageable) {
+        return departmentRepository.findAll(pageable);
     }
 
     @Override

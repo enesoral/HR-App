@@ -8,12 +8,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -53,11 +54,11 @@ class JobServiceImplTest {
 
     @Test
     void findAll() {
-        Set<Job> jobs = new TreeSet<>();
+        List<Job> jobs = new ArrayList<>();
         jobs.add(job);
-        when(jobRepository.findAll()).thenReturn(jobs);
-        Set<Job> returnedSet = service.findAll();
-        assertEquals(jobs.size(), returnedSet.size());
+        when(jobRepository.findAll(isA(Pageable.class))).thenReturn(new PageImpl<>(jobs));
+        Page<Job> returnedSet = service.findAll(PageRequest.of(0, Integer.MAX_VALUE));
+        assertEquals(jobs.size(), returnedSet.getTotalElements());
     }
 
     @Test

@@ -1,12 +1,13 @@
 package com.enesoral.simplehr.repositories;
 
 import com.enesoral.simplehr.models.Job;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
-import java.util.Set;
 
-public interface JobRepository extends CrudRepository<Job, Long> {
+public interface JobRepository extends JpaRepository<Job, Long> {
      Optional<Job> findByTitle(String title);
-     Set<Job> findAllByTitleContaining(String search);
+     Page<Job> findAllByTitleContaining(String search, Pageable pageable);
 }

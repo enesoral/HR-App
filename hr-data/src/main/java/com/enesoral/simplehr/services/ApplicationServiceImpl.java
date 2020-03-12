@@ -5,11 +5,11 @@ import com.enesoral.simplehr.models.Job;
 import com.enesoral.simplehr.models.User;
 import com.enesoral.simplehr.repositories.ApplicationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Set;
-import java.util.TreeSet;
 
 @RequiredArgsConstructor
 @Service
@@ -38,10 +38,8 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public Set<Application> findAll() {
-        Set<Application> applications = new TreeSet<>();
-        applicationRepository.findAll().forEach(applications::add);
-        return applications;
+    public Page<Application> findAll(Pageable pageable) {
+        return applicationRepository.findAll(pageable);
     }
 
     @Override

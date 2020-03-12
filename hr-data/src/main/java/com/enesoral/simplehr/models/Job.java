@@ -20,7 +20,7 @@ import java.util.Set;
 @Builder
 @Table(name = "jobs")
 @Entity
-public class Job extends BaseEntity implements Comparable<Job> {
+public class Job extends BaseEntity {
     @NotNull(message = "Name cannot be null")
     @Size(min = 5, max = 50, message = "Title must be between 10 and 50 characters")
     private String title;
@@ -51,11 +51,4 @@ public class Job extends BaseEntity implements Comparable<Job> {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "job")
     private final Set<Application> applications = new HashSet<>();
-
-    @Override
-    public int compareTo(Job job) {
-        LocalDateTime d = job.getPublishDate();
-
-        return d.compareTo(this.publishDate);
-    }
 }

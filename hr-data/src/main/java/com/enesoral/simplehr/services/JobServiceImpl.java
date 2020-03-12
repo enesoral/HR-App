@@ -3,10 +3,10 @@ package com.enesoral.simplehr.services;
 import com.enesoral.simplehr.models.Job;
 import com.enesoral.simplehr.repositories.JobRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
-import java.util.TreeSet;
 
 @RequiredArgsConstructor
 @Service
@@ -19,10 +19,8 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public Set<Job> searchJobs(String search) {
-        Set<Job> foundedJobs = new TreeSet<>();
-        jobRepository.findAllByTitleContaining(search).forEach(foundedJobs::add);
-        return foundedJobs;
+    public Page<Job> searchJobs(String search, Pageable pageable) {
+        return jobRepository.findAllByTitleContaining(search, pageable);
     }
 
     @Override
@@ -36,10 +34,8 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public Set<Job> findAll() {
-        Set<Job> jobs = new TreeSet<>();
-        jobRepository.findAll().forEach(jobs::add);
-        return jobs;
+    public Page<Job> findAll(Pageable pageable) {
+        return jobRepository.findAll(pageable);
     }
 
     @Override
