@@ -9,8 +9,8 @@
 <body>
     <div th:replace="fragments/header :: header"></div>
 
-    <div class="content-wrap mt-1">
-        <form action="/jobs/search" method="POST">
+    <div class="content-wrap my-1">
+        <form action="/jobs/" method="POST">
             <div class="container">
                 <div class="row justify-content-center align-items-center" >
                     <div class="col-lg-5 col-lg-offset-5" >
@@ -48,6 +48,15 @@
             </tr>
             </tbody>
         </table>
+
+        <div class="container pb-2">
+            <ul class="nav nav-pills">
+                <li class="nav-item" th:each="i : ${#numbers.sequence(0, jobs.getTotalPages() - 1)}">
+                    <a th:href="@{/jobs/(page=${i})}" th:text="${i}" class="nav-link font-weight-bolder" style="color:white"
+                       th:classappend="${currentPage}==${i} ? 'active' : ''"></a>
+                </li>
+            </ul>
+        </div>
 
         <div class="modal fade" id="detail-modal" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered" role="document">

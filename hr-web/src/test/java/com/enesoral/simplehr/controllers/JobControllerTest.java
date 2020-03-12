@@ -2,24 +2,35 @@ package com.enesoral.simplehr.controllers;
 
 import com.enesoral.simplehr.models.Job;
 import com.enesoral.simplehr.services.JobService;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@EnableSpringDataWebSupport
 @ExtendWith(MockitoExtension.class)
 class JobControllerTest {
 
@@ -29,33 +40,27 @@ class JobControllerTest {
     @InjectMocks
     JobController controller;
 
-    Set<Job> jobs;
+    List<Job> jobs;
     MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
-        jobs = new HashSet<>();
+        jobs = new ArrayList<>();
         jobs.add(Job.builder().title("Software Engineer").build());
         jobs.add(Job.builder().title("Intern").build());
 
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-    }
-
-    @Test
-    void listJobs() throws Exception {
-        when(jobService.findAll()).thenReturn(jobs);
-        mockMvc.perform(get("/jobs/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("jobs/index"))
-                .andExpect(model().attribute("jobs", hasSize(2)));
+        mockMvc = MockMvcBuilders.standaloneSetup(controller)
+                .setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver())
+                .build();
     }
 
     @Test
     void listJobsByIndex() throws Exception {
-        when(jobService.findAll()).thenReturn(jobs);
+        when(jobService.searchJobs(anyString(), ArgumentMatchers.isA(Pageable.class))).thenReturn(new PageImpl<>(jobs));
         mockMvc.perform(get("/jobs/index"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("jobs/index"))
-                .andExpect(model().attribute("jobs", hasSize(2)));
+                .andExpect(model().attributeExists("jobs"));
+
     }
 }

@@ -1,6 +1,5 @@
 package com.enesoral.simplehr;
 
-import com.enesoral.simplehr.controllers.ApplicationController;
 import com.enesoral.simplehr.services.FileServiceImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

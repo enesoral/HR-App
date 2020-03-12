@@ -6,6 +6,8 @@ import com.enesoral.simplehr.models.User;
 import com.enesoral.simplehr.services.ApplicationService;
 import com.enesoral.simplehr.services.JobService;
 import com.enesoral.simplehr.services.UserService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +29,10 @@ public class ApplicationController {
     }
 
     @GetMapping({"/", "/index"})
-    public String listApplications(Model model) {
-        model.addAttribute("applications", applicationService.findAll());
+    public String listApplications(Model model, @RequestParam(defaultValue = "0") int page) {
+        model.addAttribute("applications",
+                applicationService.findAll(PageRequest.of(page, 1, Sort.by("applicationDate").descending())));
+        model.addAttribute("currentPage", page);
         return "applications/index";
     }
 

@@ -6,6 +6,7 @@ import com.enesoral.simplehr.services.DepartmentService;
 import com.enesoral.simplehr.services.JobService;
 import com.enesoral.simplehr.services.UserService;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -28,7 +29,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        int count = jobService.findAll().size();
+        int count = (int) jobService.findAll(PageRequest.of(0, Integer.MAX_VALUE)).getTotalElements();
 
         if (count == 0) loadData();
     }

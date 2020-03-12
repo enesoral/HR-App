@@ -4,6 +4,8 @@ import com.enesoral.simplehr.models.Department;
 import com.enesoral.simplehr.models.Job;
 import com.enesoral.simplehr.services.DepartmentService;
 import com.enesoral.simplehr.services.JobService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,15 +26,12 @@ public class JobController {
         this.departmentService = departmentService;
     }
 
-    @GetMapping({"/", "", "/index"})
-    public String listJobs(Model model) {
-        model.addAttribute("jobs", jobService.findAll());
-        return "jobs/index";
-    }
-
-    @PostMapping("/search")
-    public String searchJobs(@RequestParam("search") String search, Model model) {
-        model.addAttribute("jobs", jobService.searchJobs(search));
+    @RequestMapping({"/", "", "/index"})
+    public String listJobs(Model model, @RequestParam(defaultValue = "0") int page,
+                           @RequestParam(defaultValue = "") String search) {
+        model.addAttribute("jobs", jobService.searchJobs(search,
+                PageRequest.of(page, 1, Sort.by("publishDate").descending())));
+        model.addAttribute("currentPage", page);
         return "jobs/index";
     }
 
@@ -47,14 +46,14 @@ public class JobController {
         Job job = new Job();
         job.setDepartment(new Department());
         model.addAttribute("job", job);
-        model.addAttribute("departments", departmentService.findAll());
+        model.addAttribute("departments", departmentService.findAll(PageRequest.of(0, Integer.MAX_VALUE)));
         return "jobs/job-form";
     }
 
     @GetMapping("/{id}/update")
     public String showUpdateForm(@PathVariable String id, Model model) {
         model.addAttribute("job", jobService.findById(Long.parseLong(id)));
-        model.addAttribute("departments", departmentService.findAll());
+        model.addAttribute("departments", departmentService.findAll(PageRequest.of(0, Integer.MAX_VALUE)));
         return "jobs/job-form";
     }
 
