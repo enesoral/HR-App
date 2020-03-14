@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <object th:replace="fragments/header :: head"></object>
+    <title>Jobs</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/job-index.css}"/>
+    <link rel="stylesheet" th:href="@{/css/detail.css}"/>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+
+    <div class="content-wrap my-1">
+        <table class="table table-striped table-dark">
+            <thead>
+            <tr>
+                <th scope="col">Job Title</th>
+                <th scope="col">Department</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="app : ${applications}">
+                <td th:text="${app.getJob().getTitle()}"></td>
+                <td th:text="${app.getJob().getDepartment().getName()}"></td>
+                <td>
+                    <a class="btn btn-warning ml-3" th:href="@{'#'}">Update</a>
+                </td>
+            </tr>
+            <tr th:if="${applications.getTotalElements() == 0}">
+                <td colspan="4"><h5 style="color:#ff1713;">There is no application.</h5></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="container pb-2" th:if="${applications.getTotalElements() != 0}">
+            <ul class="nav nav-pills">
+                <li class="nav-item" th:each="i : ${#numbers.sequence(0, applications.getTotalPages() - 1)}">
+                    <a th:href="@{/applications/mine/(page=${i})}" th:text="${i}" class="nav-link font-weight-bolder" style="color:white"
+                       th:classappend="${currentPage}==${i} ? 'active' : ''"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

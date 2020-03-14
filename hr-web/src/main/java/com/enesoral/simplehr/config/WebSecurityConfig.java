@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         String[] publicLinks = {"/login", "/", "/index", "/images/**", "/css/**", "/webjars/**"};
         String[] adminLinks = {"/h2-console/**", "/**/delete/", "/**/addform/", "/**/saveOrUpdate/", "/applications/index"
                 , "/**/showresume", "/**/update/"};
-        String[] userLinks = {"/**/resumeform/", "/**/applyform/"};
+        String[] userLinks = {"/**/resumeform/", "/**/applyform/", "/applications/mine"};
 
         http
                 .headers().frameOptions().disable()

@@ -27,6 +27,11 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
+    public Page<Application> findUserApplications(User user, Pageable pageable) {
+        return applicationRepository.findAllByUser(user, pageable);
+    }
+
+    @Override
     public Application save(Application object) {
         object.getJob().setLastApplicationDate(LocalDate.now());
         return applicationRepository.save(object);
