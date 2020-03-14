@@ -43,13 +43,13 @@
                        th:href="@{'/jobs/' + ${job.getId()} + '/update'}" th:id="${job.getId()}">Update</a>
                 </td>
             </tr>
-            <tr th:if="${#lists.isEmpty(jobs)}">
+            <tr th:if="${jobs.getTotalElements() == 0}">
                 <td colspan="4"><h5 style="color:#ff1713;">There is no job now. Will be soon!</h5></td>
             </tr>
             </tbody>
         </table>
 
-        <div class="container pb-2">
+        <div class="container pb-2" th:if="${jobs.getTotalElements() != 0}">
             <ul class="nav nav-pills">
                 <li class="nav-item" th:each="i : ${#numbers.sequence(0, jobs.getTotalPages() - 1)}">
                     <a th:href="@{/jobs/(page=${i})}" th:text="${i}" class="nav-link font-weight-bolder" style="color:white"
