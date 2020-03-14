@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 
@@ -43,14 +44,16 @@ public class ApplicationController {
     }
 
     @GetMapping("/{id}/applyform")
-    public String showApplyForm(@PathVariable String id, Model model) {
+    public String showApplyForm(@PathVariable String id, Model model, RedirectAttributes redirectAttr) {
         Job job = jobService.findById(Long.parseLong(id));
         if (isAlreadyApplied(job, userService.getLoggedUser())) {
-            return "redirect:/jobs/index?alreadyapplied";
+            redirectAttr.addFlashAttribute("alreadyapplied", true);
+            return "redirect:/jobs/index";
         }
 
         if (userService.getLoggedUser().getResumeDirectory() == null) {
-            return "redirect:/users/resumeform?haveto";
+            redirectAttr.addFlashAttribute("haveto", true);
+            return "redirect:/users/resumeform";
         }
 
         model.addAttribute("jobId", Long.parseLong(id));
@@ -58,19 +61,21 @@ public class ApplicationController {
     }
 
     @PostMapping("/{id}/apply")
-    public String applyJob(@PathVariable String id, @RequestParam("thoughts") String thoughts) {
+    public String applyJob(@PathVariable String id, @RequestParam("thoughts") String thoughts,
+                           RedirectAttributes redirectAttr) {
 
         Application application = new Application(LocalDateTime.now(), userService.getLoggedUser(),
                 jobService.findById(Long.parseLong(id)), thoughts);
-
         applicationService.save(application);
-        return "redirect:/jobs/index?applysuccess";
+        redirectAttr.addFlashAttribute("applysuccess", true);
+        return "redirect:/jobs/index";
     }
 
     @PostMapping("/{id}/delete")
-    public String deleteApplication(@PathVariable String id) {
+    public String deleteApplication(@PathVariable String id, RedirectAttributes redirectAttr) {
         applicationService.deleteById(Long.parseLong(id));
-        return "redirect:/applications/index?appdeleted";
+        redirectAttr.addFlashAttribute("appdeleted", true);
+        return "redirect:/applications/index";
     }
 
     private boolean isAlreadyApplied(Job job, User user) {

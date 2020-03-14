@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.*;
 import java.time.LocalDateTime;
@@ -58,18 +59,21 @@ public class JobController {
     }
 
     @PostMapping("/saveOrUpdate")
-    public String addJob(@Valid Job job, BindingResult result) {
+    public String addJob(@Valid Job job, BindingResult result, RedirectAttributes redirectAttr) {
         if (result.hasErrors()) {
-            return "redirect:/jobs/addform?error";
+            redirectAttr.addFlashAttribute("error", true);
+            return "redirect:/jobs/add";
         }
         job.setPublishDate(LocalDateTime.now());
         jobService.save(job);
-        return "redirect:/jobs/index?jobadded";
+        redirectAttr.addFlashAttribute("jobsaved", true);
+        return "redirect:/jobs/index";
     }
 
     @PostMapping("/{id}/delete")
-    public String deleteById(@PathVariable String id) {
+    public String deleteById(@PathVariable String id, RedirectAttributes redirectAttr) {
         jobService.deleteById(Long.parseLong(id));
-        return "redirect:/jobs/index?jobdeleted";
+        redirectAttr.addFlashAttribute("jobdeleted", true);
+        return "redirect:/jobs/index";
     }
 }

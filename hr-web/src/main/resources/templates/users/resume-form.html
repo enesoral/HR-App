@@ -25,10 +25,10 @@
     </div>
 
     <div th:replace="fragments/footer :: footer"></div>
-    <script th:if="${param.resumeerror}">
+    <script th:if="${resumeerror}">
         toastr.error("", "Choose valid file type!");
     </script>
-    <script th:if="${param.haveto}">
+    <script th:if="${haveto}">
         toastr.info("", "You have to upload resume!");
     </script>
 </body>

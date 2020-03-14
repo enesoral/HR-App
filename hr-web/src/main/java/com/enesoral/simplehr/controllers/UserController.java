@@ -6,6 +6,7 @@ import com.enesoral.simplehr.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -29,11 +30,12 @@ public class UserController {
     }
 
     @PostMapping("/uploadresume")
-    public String uploadResume(@RequestParam MultipartFile resume, HttpSession session) {
+    public String uploadResume(@RequestParam MultipartFile resume, RedirectAttributes redirectAttr) {
         if (!setAndUploadResume(userService.getLoggedUser(), resume)) {
-            return "redirect:/users/resumeform?resumeerror";
+            return "redirect:/users/resumeform";
         }
-        return "redirect:/jobs/index?resumesuccess";
+        redirectAttr.addFlashAttribute("resumesuccess", true);
+        return "redirect:/jobs/index";
     }
 
     @PostMapping("/{id}/showresume")
