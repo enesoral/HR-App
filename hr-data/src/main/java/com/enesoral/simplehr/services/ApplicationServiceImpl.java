@@ -18,12 +18,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public boolean isAlreadyApplied(Job job, User user) {
-        for (Application application: applicationRepository.findAll()) {
-            if (application.getJob().equals(job) && application.getUser().equals(user)) {
-                return true;
-            }
-        }
-        return false;
+        return applicationRepository.findApplicationByJobAndUser(job, user).isPresent();
     }
 
     @Override
