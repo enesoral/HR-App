@@ -51,7 +51,7 @@ public class JobController {
         return "jobs/job-form";
     }
 
-    @GetMapping("/{id}/update")
+    @GetMapping("/{id}/edit")
     public String showUpdateForm(@PathVariable String id, Model model) {
         model.addAttribute("job", jobService.findById(Long.parseLong(id)));
         model.addAttribute("departments", departmentService.findAll(PageRequest.of(0, Integer.MAX_VALUE)));

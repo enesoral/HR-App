@@ -41,8 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         String[] publicLinks = {"/login", "/", "/index", "/images/**", "/css/**", "/webjars/**"};
         String[] adminLinks = {"/h2-console/**", "/**/delete/", "/**/addform/", "/**/saveOrUpdate/", "/applications/index"
-                , "/**/showresume", "/**/update/"};
-        String[] userLinks = {"/**/resumeform/", "/**/applyform/", "/applications/mine"};
+                , "/**/showresume", "/**/edit"};
+        String[] userLinks = {"/**/resumeform/", "/**/applyform/", "/applications/mine", "/applications/**/update"};
 
         http
                 .headers().frameOptions().disable()

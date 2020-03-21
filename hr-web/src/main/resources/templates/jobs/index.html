@@ -40,7 +40,7 @@
                     <a class="btn btn-info" th:onclick="'openDetail(' + ${job.getId()} + ')'"
                        th:id="${job.getId()}">Details</a>
                     <a class="btn btn-warning ml-2" th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}"
-                       th:href="@{'/jobs/' + ${job.getId()} + '/update'}" th:id="${job.getId()}">Update</a>
+                       th:href="@{'/jobs/' + ${job.getId()} + '/edit'}" th:id="${job.getId()}">Update</a>
                 </td>
             </tr>
             <tr th:if="${jobs.getTotalElements() == 0}">

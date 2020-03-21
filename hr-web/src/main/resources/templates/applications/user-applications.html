@@ -23,7 +23,7 @@
                 <td th:text="${app.getJob().getTitle()}"></td>
                 <td th:text="${app.getJob().getDepartment().getName()}"></td>
                 <td>
-                    <a class="btn btn-warning ml-3" th:href="@{'#'}">Update</a>
+                    <a class="btn btn-warning ml-3" th:href="@{'/applications/' + ${app.getId()} + '/update'}">Update</a>
                 </td>
             </tr>
             <tr th:if="${applications.getTotalElements() == 0}">

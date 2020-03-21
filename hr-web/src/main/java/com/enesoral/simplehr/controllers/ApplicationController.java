@@ -68,12 +68,28 @@ public class ApplicationController {
         return "applications/apply-form";
     }
 
+    @GetMapping("/{id}/update")
+    public String updateApplication(@PathVariable String id, Model model) {
+        Application application = applicationService.findById(Long.parseLong(id));
+        if (application.getUser().getId().equals(userService.getLoggedUser().getId())) {
+            model.addAttribute("app", application);
+            return "applications/apply-form";
+        }
+        return null;
+    }
+
     @PostMapping("/{id}/apply")
     public String applyJob(@PathVariable String id, @RequestParam("thoughts") String thoughts,
-                           RedirectAttributes redirectAttr) {
+                           @RequestParam("appId") String appId, RedirectAttributes redirectAttr) {
+        Application application;
+        if (appId.length() != 0) {
+            application = applicationService.findById(Long.parseLong(appId));
+            application.setThoughtsOnJob(thoughts);
+        } else {
+            application = new Application(LocalDateTime.now(), userService.getLoggedUser(),
+                    jobService.findById(Long.parseLong(id)), thoughts);
+        }
 
-        Application application = new Application(LocalDateTime.now(), userService.getLoggedUser(),
-                jobService.findById(Long.parseLong(id)), thoughts);
         applicationService.save(application);
         redirectAttr.addFlashAttribute("applysuccess", true);
         return "redirect:/jobs/index";

@@ -47,7 +47,7 @@
         <div class="container pb-2" th:if="${applications.getTotalElements() != 0}">
             <ul class="nav nav-pills">
                 <li class="nav-item" th:each="i : ${#numbers.sequence(0, applications.getTotalPages() - 1)}">
-                    <a th:href="@{/applications/(page=${i})}" th:text="${i}" class="nav-link font-weight-bolder" style="color:white"
+                    <a th:href="@{/applications/index/(page=${i})}" th:text="${i}" class="nav-link font-weight-bolder" style="color:white"
                        th:classappend="${currentPage}==${i} ? 'active' : ''"></a>
                 </li>
             </ul>

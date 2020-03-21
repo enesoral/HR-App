@@ -2,7 +2,7 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
     <object th:replace="fragments/header :: head"></object>
-    <title>Apply Job</title>
+    <title th:with="text=${app == null ? 'Save Apply' : 'Update Apply'}" th:text="${text}">Apply Job</title>
 </head>
 <body>
     <div th:replace="fragments/header :: header"></div>
@@ -10,26 +10,30 @@
     <div style="background-color: #41444D">
         <div class="container">
 
-                <div class="container my-1 py-3">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="col-sm-6 form-group">
-                                <label>Upload new resume (optional)</label>
-                                <button onclick="location.href='/users/resumeform'" style="display: block"
-                                        class="btn btn-outline-light">New Resume</button>
-                            </div>
+            <div class="container my-1 py-3">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>Upload new resume (optional)</label>
+                            <button onclick="location.href='/users/resumeform'" style="display: block"
+                                    class="btn btn-outline-light">New Resume
+                            </button>
                         </div>
-                        <form method="POST" th:action="@{'/applications/' + ${id} + '/apply'}" enctype="multipart/form-data">
+                    </div>
+                    <form method="POST" th:action="@{'/applications/' + ${id} + '/apply'}"
+                          enctype="multipart/form-data">
                         <div class="form-group overflow-hidden">
+                            <input type="hidden" name="appId" th:value="${app?.id}"/>
                             <label>Thoughts on Job</label>
-                            <textarea name="thoughts" minlength="10" th:maxlength="150"
+                            <textarea name="thoughts" minlength="10" th:maxlength="150" th:text="${app?.thoughtsOnJob}"
                                       placeholder="Enter Thoughts Here.." required rows="3"
                                       class="form-control"></textarea>
-                            <input type="submit" class="btn btn-lg btn-success float-right mt-3" value="Apply Job">
+                            <input th:with="text=${app == null ? 'Save Apply' : 'Update Apply'}"
+                                   type="submit" class="btn btn-lg btn-success float-right mt-3" th:value="${text}">
                         </div>
-                        </form>
-                    </div>
+                    </form>
                 </div>
+            </div>
 
         </div>
     </div>
