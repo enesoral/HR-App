@@ -33,6 +33,7 @@ public class JobController {
         model.addAttribute("jobs", jobService.searchJobs(search,
                 PageRequest.of(page, 1, Sort.by("publishDate").descending())));
         model.addAttribute("currentPage", page);
+        model.addAttribute("search", search);
         return "jobs/index";
     }
 

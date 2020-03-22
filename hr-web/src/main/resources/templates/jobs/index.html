@@ -15,8 +15,9 @@
                 <div class="row justify-content-center align-items-center" >
                     <div class="col-lg-5 col-lg-offset-5" >
                         <div class="input-group" style="text-align:center;">
+                            <th:block ></th:block>
                             <input type="text" name="search" class="searchbox form-control my-3"
-                                   placeholder="Enter search job">
+                                   th:with="text=${search == '' ? 'Search job' : search}" th:placeholder="${text}">
                             <input type="submit" class="btn btn-secondary ml-3 my-2" value="Search Job">
                         </div>
                     </div>
@@ -52,7 +53,7 @@
         <div class="container pb-2" th:if="${jobs.getTotalElements() != 0}">
             <ul class="nav nav-pills">
                 <li class="nav-item" th:each="i : ${#numbers.sequence(0, jobs.getTotalPages() - 1)}">
-                    <a th:href="@{/jobs/(page=${i})}" th:text="${i}" class="nav-link font-weight-bolder" style="color:white"
+                    <a th:href="@{/jobs/(page=${i}, search=${search})}" th:text="${i}" class="nav-link font-weight-bolder" style="color:white"
                        th:classappend="${currentPage}==${i} ? 'active' : ''"></a>
                 </li>
             </ul>
