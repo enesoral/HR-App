@@ -71,7 +71,7 @@ public class ApplicationController {
     @GetMapping("/{id}/update")
     public String updateApplication(@PathVariable String id, Model model) {
         Application application = applicationService.findById(Long.parseLong(id));
-        if (application.getUser().getId().equals(userService.getLoggedUser().getId())) {
+        if (isApplicationBelongUser(application, userService.getLoggedUser())) {
             model.addAttribute("app", application);
             return "applications/apply-form";
         }
@@ -102,7 +102,22 @@ public class ApplicationController {
         return "redirect:/applications/index";
     }
 
+    @PostMapping("/{id}/withdraw")
+    public String withdrawTheApplication(@PathVariable String id, RedirectAttributes redirectAttr) {
+        Application application = applicationService.findById(Long.parseLong(id));
+        if (isApplicationBelongUser(application, userService.getLoggedUser())) {
+            applicationService.deleteById(Long.parseLong(id));
+            redirectAttr.addFlashAttribute("appdeleted", true);
+            return "redirect:/applications/mine";
+        }
+        return null;
+    }
+
     private boolean isAlreadyApplied(Job job, User user) {
         return applicationService.isAlreadyApplied(job, user);
+    }
+
+    private boolean isApplicationBelongUser(Application application, User user) {
+        return application.getUser().getId().equals(user.getId());
     }
 }
