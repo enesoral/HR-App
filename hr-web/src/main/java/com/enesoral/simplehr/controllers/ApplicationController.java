@@ -69,13 +69,13 @@ public class ApplicationController {
     }
 
     @GetMapping("/{id}/update")
-    public String updateApplication(@PathVariable String id, Model model) {
+    public String updateApplication(@PathVariable String id, Model model) throws IllegalAccessException {
         Application application = applicationService.findById(Long.parseLong(id));
         if (isApplicationBelongUser(application, userService.getLoggedUser())) {
             model.addAttribute("app", application);
             return "applications/apply-form";
         }
-        return null;
+        throw new IllegalAccessException("Have no authority for this operation.");
     }
 
     @PostMapping("/{id}/apply")
@@ -103,14 +103,15 @@ public class ApplicationController {
     }
 
     @PostMapping("/{id}/withdraw")
-    public String withdrawTheApplication(@PathVariable String id, RedirectAttributes redirectAttr) {
+    public String withdrawTheApplication(@PathVariable String id, RedirectAttributes redirectAttr)
+            throws IllegalAccessException {
         Application application = applicationService.findById(Long.parseLong(id));
         if (isApplicationBelongUser(application, userService.getLoggedUser())) {
             applicationService.deleteById(Long.parseLong(id));
             redirectAttr.addFlashAttribute("appdeleted", true);
             return "redirect:/applications/mine";
         }
-        return null;
+        throw new IllegalAccessException("Have no authority for this operation.");
     }
 
     private boolean isAlreadyApplied(Job job, User user) {

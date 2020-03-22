@@ -24,7 +24,7 @@
                 <td th:text="${app.getJob().getDepartment().getName()}"></td>
                 <td>
                     <form th:action="@{'/applications/' + ${app.getId()} + '/withdraw'}" method="POST">
-                    <a class="btn btn-warning ml-3" th:href="@{'/applications/' + ${app.getId()} + '/update'}">Update</a>
+                    <a class="btn btn-warning" th:href="@{'/applications/' + ${app.getId()} + '/update'}">Update</a>
 
                         <input type="submit" th:onclick="return confirm('Are you sure you want to delete this application?')"
                                class="btn btn-danger" value="Delete" />

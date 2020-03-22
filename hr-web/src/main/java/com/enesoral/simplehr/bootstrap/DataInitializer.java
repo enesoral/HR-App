@@ -72,22 +72,22 @@ public class DataInitializer implements CommandLineRunner {
                 .publishDate(LocalDate.now().atTime(11,0)).lastApplicationDate(LocalDate.now()).build();
         jobService.save(marketingTeamLead);
 
-        User enes = User.builder().firstName("Muhammed Enes").lastName("Oral").address("İzmir").email("info@enesoral.com")
-                .phone("5078713351").username("enesoral").password("123").isManager(false).build();
+        User enes = User.builder().firstName("Muhammed Enes").lastName("Oral").address("Izmir").email("info@enesoral.com")
+                .phone("5555555555").username("enesoral").password("123").isManager(false).build();
         enes.setResumeDirectory(System.getProperty("user.dir") + "/uploads/enesoral-resume");
         userService.save(enes);
 
-        User ozlem = User.builder().firstName("Özlem").lastName("Çakmak").username("ozlemcakmak").address("İstanbul")
-                .email("ozlemcakmak@gmail.com").phone("5553334444").password("123").isManager(false).build();
+        User ozlem = User.builder().firstName("Özlem").lastName("Yılmaz").username("ozlemyilmaz").address("Istanbul")
+                .email("ozlemyilmaz@gmail.com").phone("5553334444").password("123").isManager(false).build();
         userService.save(ozlem);
 
-        User gulcin = User.builder().firstName("Gülçin").lastName("Nacak").username("gulcinnacak").address("İstanbul")
-                .email("gulcinnacak@gmail.com").phone("5554443333").password("123").isManager(false).build();
+        User gulcin = User.builder().firstName("Gülçin").lastName("Özel").username("gulcinozel").address("Istanbul")
+                .email("gulcinozel@gmail.com").phone("5554443333").password("123").isManager(false).build();
         userService.save(gulcin);
 
-        User destan = User.builder().firstName("Destan").lastName("Sarpkaya").username("destansarpkaya").address("İstanbul")
-                .email("destan@gmail.com").phone("5554433334").password("123").isManager(true).build();
-        userService.save(destan);
+        User hasan = User.builder().firstName("Hasan").lastName("Oral").username("admin").address("Istanbul")
+                .email("hasan@gmail.com").phone("5554433334").password("123").isManager(true).build();
+        userService.save(hasan);
 
         String thoughtsMsg = "I'm exactly match for this job because I love my job and I complete tasks with passion!";
         Application application1 = new Application();

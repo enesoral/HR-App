@@ -20,7 +20,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Department findById(Long aLong) {
-        return departmentRepository.findById(aLong).orElse(null);
+        if(!departmentRepository.findById(aLong).isPresent()) {
+            throw new RuntimeException("Department not found for id value: " + aLong);
+        }
+        return departmentRepository.findById(aLong).get();
     }
 
     @Override
@@ -35,6 +38,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public void deleteById(Long aLong) {
+        if(!departmentRepository.findById(aLong).isPresent()) {
+            throw new RuntimeException("Department not found for id value: " + aLong);
+        }
         departmentRepository.deleteById(aLong);
     }
 }

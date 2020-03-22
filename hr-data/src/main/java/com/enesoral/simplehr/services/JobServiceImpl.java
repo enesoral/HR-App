@@ -30,7 +30,10 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public Job findById(Long aLong) {
-        return jobRepository.findById(aLong).orElse(null);
+        if(!jobRepository.findById(aLong).isPresent()) {
+            throw new RuntimeException("Job not found for id value: " + aLong);
+        }
+        return jobRepository.findById(aLong).get();
     }
 
     @Override
@@ -45,6 +48,9 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public void deleteById(Long aLong) {
+        if(!jobRepository.findById(aLong).isPresent()) {
+            throw new RuntimeException("Job not found for id value: " + aLong);
+        }
         jobRepository.deleteById(aLong);
     }
 }

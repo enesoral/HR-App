@@ -34,7 +34,10 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public Application findById(Long aLong) {
-        return applicationRepository.findById(aLong).orElse(null);
+        if(!applicationRepository.findById(aLong).isPresent()) {
+            throw new RuntimeException("Application not found for id value: " + aLong);
+        }
+        return applicationRepository.findById(aLong).get();
     }
 
     @Override
@@ -49,6 +52,9 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public void deleteById(Long aLong) {
+        if(!applicationRepository.findById(aLong).isPresent()) {
+            throw new RuntimeException("Application not found for id value: " + aLong);
+        }
         applicationRepository.deleteById(aLong);
     }
 }
