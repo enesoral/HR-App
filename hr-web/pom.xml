@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>hr-web</artifactId>
-
+    <packaging>war</packaging>
     <properties>
         <webjars-bootstrap.version>4.4.1</webjars-bootstrap.version>
         <webjars-jquery.version>3.0.0</webjars-jquery.version>
