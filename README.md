@@ -37,8 +37,28 @@ HR App is a [Spring Boot](https://spring.io/guides/gs/spring-boot) application b
 ```
 git clone https://github.com/enesoral/HR-App
 cd HR-App
-./mvnw package
-java -jar hr-web/target/*.jar
+
+HR-App> mvn clean install -U
+
+[INFO]
+[INFO] simple-hr .......................................... SUCCESS [  2.104 s]
+[INFO] hr-data ............................................ SUCCESS [ 18.940 s]
+[INFO] hr-web ............................................. SUCCESS [ 30.228 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+
+
+HR-App\hr-web> mvn spring-boot:run
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.2.4.RELEASE)
+
 ```
 
 You can then access hr-app here: http://localhost:8080/
