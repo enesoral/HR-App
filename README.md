@@ -31,7 +31,7 @@ I used Trello for project management.
 <img width="1042" alt="trello-ss" src="https://user-images.githubusercontent.com/53643180/77248923-65d61800-6c4e-11ea-88a1-a7a3725f747d.png">
 
 ## Running hr-app locally
-HR App is a [Spring Boot](https://spring.io/guides/gs/spring-boot) application built using [Maven](https://spring.io/guides/gs/maven/). You can build a jar file and run it from the command line:
+HR App is a [Spring Boot](https://spring.io/guides/gs/spring-boot) application built using [Maven](https://spring.io/guides/gs/maven/). You can build and run using maven:
 
 
 ```
@@ -48,6 +48,8 @@ HR-App> mvn clean install -U
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
 
+
+cd hr-web
 
 HR-App\hr-web> mvn spring-boot:run
 
